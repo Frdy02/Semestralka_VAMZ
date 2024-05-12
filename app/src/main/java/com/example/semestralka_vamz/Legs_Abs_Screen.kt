@@ -12,7 +12,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 
 @Composable
-fun PullScreen(navController: NavController) {
+fun Legs_Abs_Screen(navController: NavController) {
     Surface(
         modifier = Modifier.fillMaxSize(),
         color = Color(0xFF000015), // Tmavomodré pozadie
@@ -29,7 +29,7 @@ fun PullScreen(navController: NavController) {
                 modifier = Modifier.padding(50.dp).fillMaxWidth()
             ) {
                 Text(
-                    text = "Chrbát",
+                    text = "Predné stehná",
                     fontWeight = FontWeight.Bold,
                     fontSize = 30.sp
                 )
@@ -40,7 +40,7 @@ fun PullScreen(navController: NavController) {
                 modifier = Modifier.padding(50.dp).fillMaxWidth()
             ) {
                 Text(
-                    text = "Kridla",
+                    text = "Zadné stehná",
                     fontWeight = FontWeight.Bold,
                     fontSize = 30.sp
                 )
