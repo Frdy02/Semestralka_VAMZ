@@ -4,8 +4,10 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -15,86 +17,75 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.semestralka_vamz.R
+import com.example.semestralka_vamz.zaklad.Cvik
+import com.example.semestralka_vamz.zaklad.SpodnaLista
 
 @Composable
 fun TricepsScreen(navController: NavController) {
+    val cviky = remember {
+        listOf(
+            Cvik("Tricepsové sťahovanie kladky", R.drawable.triceps1, "Popis "),
+            Cvik("Tricepsové kliky na bradlách", R.drawable.triceps2, "Popis "),
+            Cvik("Tricepsový zdvih\ns veľkou činkou", R.drawable.triceps3, "Popis ")
+        )
+    }
 
-    val image1 = R.drawable.house // Identifikátor obrázka
-    val image2 = R.drawable.cvik // Identifikátor obrázka
     Surface(
         color = Color(0xFF000015),
         modifier = Modifier.fillMaxSize()
     ) {
-        LazyColumn(
-            modifier = Modifier.fillMaxSize().padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(16.dp),
+        Column(
+            modifier = Modifier.fillMaxSize(),
+            verticalArrangement = Arrangement.SpaceBetween,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            item {
-                Image(
-                    painter = painterResource(id = image1),
-                    contentDescription = null, // Umiestnenie obrázka
-                    modifier = Modifier
-                        .fillMaxWidth() // Nastaviť obrázok na celú dostupnú šírku
-                        //.padding(10.dp)
-                        .height(160.dp)
-
-                )
-                Text(
-                    text = "Tricepsové kliky na bradlách",
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 25.sp
-                )
-            }
-            item {
-                Image(
-                    painter = painterResource(id = image1),
-                    contentDescription = null, // Umiestnenie obrázka
-                    modifier = Modifier
-                        .fillMaxWidth() // Nastaviť obrázok na celú dostupnú šírku
-                        //.padding(10.dp)
-                        .height(160.dp)
-
-                )
-                Text(
-                    text = "Tricepsové sťahovanie kladky",
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 25.sp
-                )
-            }
-            item {
-                // Dolná lišta s tlačidlami
-                BottomAppBar(
-                    modifier = Modifier.height(65.dp)
-                ) {
-                    Row(
-                        horizontalArrangement = Arrangement.SpaceEvenly, // Rozmiestnenie tlačidiel
+            LazyColumn(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .weight(1f)
+                    .padding(25.dp),
+                verticalArrangement = Arrangement.spacedBy(50.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                items(cviky) { cvik ->
+                    Card(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(10.dp)
+                            .clickable { cvik.isExpanded.value = !cvik.isExpanded.value },
                     ) {
-
-                        Image(
-                            painter = painterResource(id = image1),
-                            contentDescription = null,
+                        Column(
+                            horizontalAlignment = Alignment.CenterHorizontally,
                             modifier = Modifier
-                                .size(50.dp) // Veľkosť obrazka
-                                .clickable { navController.navigate("CvicenieScreen") } // Navigácia na HomeScreen pri kliknutí
-
-                        )
-
-                        Image(
-                            painter = painterResource(id = image2),
-                            contentDescription = null,
-                            modifier = Modifier
-                                .size(50.dp) // Veľkosť obrazka
-                                .clickable { navController.navigate("HomeScreen") } // Navigácia na HomeScreen pri kliknutí
-
-                        )
+                                .fillMaxWidth()
+                                .clickable { cvik.isExpanded.value = !cvik.isExpanded.value }
+                        ) {
+                            Text(
+                                text = cvik.nazov,
+                                fontWeight = FontWeight.Bold,
+                                fontSize = 25.sp
+                            )
+                            if (cvik.isExpanded.value) {
+                                Image(
+                                    painter = painterResource(id = cvik.imageResId),
+                                    contentDescription = null,
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .padding(10.dp)
+                                        .height(160.dp)
+                                )
+                                Text(
+                                    text = cvik.popis,
+                                    fontWeight = FontWeight.Normal,
+                                    fontSize = 18.sp,
+                                    color = Color.White,
+                                    modifier = Modifier.padding(10.dp)
+                                )
+                            }
+                        }
                     }
                 }
             }
+            SpodnaLista(navController = navController)
         }
     }
 }
-

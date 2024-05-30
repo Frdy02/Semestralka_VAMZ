@@ -1,4 +1,4 @@
-package com.example.semestralka_vamz.push
+package com.example.semestralka_vamz.pull
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -13,22 +13,20 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.semestralka_vamz.R
-import com.example.semestralka_vamz.zaklad.Cviky
+import com.example.semestralka_vamz.zaklad.Cvik
 import com.example.semestralka_vamz.zaklad.SpodnaLista
 
-
 @Composable
-fun HrudnikScreen(navController: NavController) {
-
+fun PredlaktieScreen(navController: NavController) {
     val cviky = remember {
         listOf(
-            Cviky("Horná časť hrudníku", R.drawable.horny1, "Popis cviku ", R.drawable.horny2, "Popis cviku" ),
-            Cviky("Stredná časť hrudníku", R.drawable.stred1, "Popis cviku", R.drawable.stred2, "Popis cviku" ),
-            Cviky("Dolná časť hrudníku", R.drawable.dole1, "Popis cviku", R.drawable.dole2, "Popis cviku" )
+            Cvik("Klopenie zápästia\ns veľkou činkou", R.drawable.predlaktie1, "Popis cviku "),
+            Cvik("Zdvih s veľkou\n činkou nadhmatom", R.drawable.predlaktie2, "Popis cviku "),
         )
     }
 
@@ -64,12 +62,12 @@ fun HrudnikScreen(navController: NavController) {
                             Text(
                                 text = cvik.nazov,
                                 fontWeight = FontWeight.Bold,
-                                fontSize = 25.sp
-
+                                fontSize = 25.sp,
+                                textAlign = TextAlign.Center,
                             )
                             if (cvik.isExpanded.value) {
                                 Image(
-                                    painter = painterResource(id = cvik.imageResId1),
+                                    painter = painterResource(id = cvik.imageResId),
                                     contentDescription = null,
                                     modifier = Modifier
                                         .fillMaxWidth()
@@ -77,22 +75,7 @@ fun HrudnikScreen(navController: NavController) {
                                         .height(160.dp)
                                 )
                                 Text(
-                                    text = cvik.popis1,
-                                    fontWeight = FontWeight.Normal,
-                                    fontSize = 18.sp,
-                                    color = Color.White,
-                                    modifier = Modifier.padding(10.dp)
-                                )
-                                Image(
-                                    painter = painterResource(id = cvik.imageResId2),
-                                    contentDescription = null,
-                                    modifier = Modifier
-                                        .fillMaxWidth()
-                                        .padding(10.dp)
-                                        .height(160.dp)
-                                )
-                                Text(
-                                    text = cvik.popis2,
+                                    text = cvik.popis,
                                     fontWeight = FontWeight.Normal,
                                     fontSize = 18.sp,
                                     color = Color.White,
@@ -107,4 +90,5 @@ fun HrudnikScreen(navController: NavController) {
         }
     }
 }
+
 

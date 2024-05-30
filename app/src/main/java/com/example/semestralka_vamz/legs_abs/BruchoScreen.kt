@@ -1,4 +1,4 @@
-package com.example.semestralka_vamz.push
+package com.example.semestralka_vamz.legs_abs
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -20,15 +20,13 @@ import com.example.semestralka_vamz.R
 import com.example.semestralka_vamz.zaklad.Cviky
 import com.example.semestralka_vamz.zaklad.SpodnaLista
 
-
 @Composable
-fun HrudnikScreen(navController: NavController) {
-
+fun BruchoScreen(navController: NavController) {
     val cviky = remember {
         listOf(
-            Cviky("Horná časť hrudníku", R.drawable.horny1, "Popis cviku ", R.drawable.horny2, "Popis cviku" ),
-            Cviky("Stredná časť hrudníku", R.drawable.stred1, "Popis cviku", R.drawable.stred2, "Popis cviku" ),
-            Cviky("Dolná časť hrudníku", R.drawable.dole1, "Popis cviku", R.drawable.dole2, "Popis cviku" )
+            Cviky("Horná časť", R.drawable.horna1, "Popis cviku ", R.drawable.horna2, "Popis cviku "),
+            Cviky("Bočná časť", R.drawable.bocne1, "Popis cviku ", R.drawable.bocne2, "Popis cviku "),
+            Cviky("Dolná časť", R.drawable.dolne1, "Popis cviku ", R.drawable.dolne2, "Popis cviku "),
         )
     }
 
@@ -65,7 +63,6 @@ fun HrudnikScreen(navController: NavController) {
                                 text = cvik.nazov,
                                 fontWeight = FontWeight.Bold,
                                 fontSize = 25.sp
-
                             )
                             if (cvik.isExpanded.value) {
                                 Image(
@@ -107,4 +104,3 @@ fun HrudnikScreen(navController: NavController) {
         }
     }
 }
-

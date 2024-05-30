@@ -16,24 +16,20 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.semestralka_vamz.legs_abs.BruchoScreen
 import com.example.semestralka_vamz.legs_abs.Legs_Abs_Screen
+import com.example.semestralka_vamz.legs_abs.NohyScreen
 import com.example.semestralka_vamz.pull.BicepsScreen
 import com.example.semestralka_vamz.pull.ChrbatScreen
-import com.example.semestralka_vamz.pull.HornyChrbatScreen
-import com.example.semestralka_vamz.pull.KridlaScreen
-import com.example.semestralka_vamz.pull.MedziLopatkovaCastScreen
+import com.example.semestralka_vamz.pull.PredlaktieScreen
 import com.example.semestralka_vamz.pull.PullScreen
-import com.example.semestralka_vamz.push.BocneRamenaScreen
-import com.example.semestralka_vamz.push.HornyHrudnikScreen
 import com.example.semestralka_vamz.push.HrudnikScreen
-import com.example.semestralka_vamz.push.PrsiaScreen
 import com.example.semestralka_vamz.push.PushScreen
 import com.example.semestralka_vamz.push.RamenaScreen
 import com.example.semestralka_vamz.push.TricepsScreen
@@ -61,17 +57,15 @@ class MainActivity : ComponentActivity() {
                         composable("CvicenieScreen") { CvicenieScreen(navController) }
 
                         composable("HrudnikScreen") { HrudnikScreen(navController) }
-                        composable("HornyHrudnikScreen") { HornyHrudnikScreen(navController) }
-                        composable("PrsiaScreen") { PrsiaScreen(navController) }
                         composable("RamenaScreen") { RamenaScreen(navController) }
-                        composable("BocneRamenaScreen") { BocneRamenaScreen(navController) }
                         composable("TricepsScreen") { TricepsScreen(navController) }
 
                         composable("ChrbatScreen") { ChrbatScreen(navController) }
-                        composable("MedziLopatkovaCastScreen") { MedziLopatkovaCastScreen(navController) }
-                        composable("HornyChrbatScreen") { HornyChrbatScreen(navController) }
-                        composable("KridlaScreen") { KridlaScreen(navController) }
+                        composable("PredlaktieScreen") { PredlaktieScreen(navController) }
                         composable("BicepsScreen") { BicepsScreen(navController) }
+
+                        composable("NohyScreen") { NohyScreen(navController) }
+                        composable("BruchoScreen") { BruchoScreen(navController) }
                     }
                 }
             }
@@ -81,15 +75,15 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun WelcomeScreen(navController: NavController) {
-    val customColor = Color(0xFF000015) //Vlastná farba
-    val image = R.drawable.uvodna // Identifikátor obrázka
+    val customColor = Color(0xFF000017)
+    val image = R.drawable.uvodna
 
     Surface(
         modifier = Modifier.fillMaxSize(),
-        color = customColor, // Tmavomodré pozadie
+        color = customColor
     ) {
         LazyColumn(
-            modifier = Modifier.fillMaxSize().padding(10.dp), // Odsadenie od kraja 30
+            modifier = Modifier.fillMaxSize().padding(10.dp),
             verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
@@ -124,15 +118,5 @@ fun WelcomeScreen(navController: NavController) {
                 }
             }
         }
-    }
-}
-
-
-@Preview(showBackground = true)
-@Composable
-fun WelcomeScreenPreview() {
-    Semestralka_VamzTheme {
-        val navController = rememberNavController()
-        WelcomeScreen(navController)
     }
 }

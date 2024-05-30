@@ -15,7 +15,7 @@ import androidx.navigation.NavController
 fun CvicenieScreen(navController: NavController) {
 
     Surface(
-        color = Color(0xFF000015),
+        color = Color(0xFF000017),
         modifier = Modifier.fillMaxSize()
     ) {
         Column(
