@@ -9,7 +9,7 @@ import com.example.semestralka_vamz.zaklad.ExerciseScreen
 @Composable
 fun PullScreen(navController: NavController) {
     val exercises = listOf(
-        Exercise("Cviky na chrbát", R.drawable.hrudnik, "ChrbatScreen"),
+        Exercise("Cviky na chrbát", R.drawable.chrbat, "ChrbatScreen"),
         Exercise("Cviky na biceps", R.drawable.ramena, "BicepsScreen"),
         Exercise("Cviky na predlaktie", R.drawable.predlaktie, "PredlaktieScreen")
     )

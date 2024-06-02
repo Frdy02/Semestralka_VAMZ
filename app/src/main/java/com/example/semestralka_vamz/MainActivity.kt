@@ -1,5 +1,6 @@
 package com.example.semestralka_vamz
 
+import android.content.Context
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -34,8 +35,9 @@ import com.example.semestralka_vamz.push.PushScreen
 import com.example.semestralka_vamz.push.RamenaScreen
 import com.example.semestralka_vamz.push.TricepsScreen
 import com.example.semestralka_vamz.ui.theme.Semestralka_VamzTheme
-import com.example.semestralka_vamz.zaklad.CvicenieScreen
 import com.example.semestralka_vamz.zaklad.HomeScreen
+import com.example.semestralka_vamz.pokrok.PokrokScreen
+import com.example.semestralka_vamz.registracia.RegistraciaScreen
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,18 +45,20 @@ class MainActivity : ComponentActivity() {
         setContent {
             Semestralka_VamzTheme {
                 val navController = rememberNavController()
+                val sharedPreferences = getSharedPreferences("app_preferences", Context.MODE_PRIVATE)
+                val isFirstRun = sharedPreferences.getBoolean("isFirstRun", true)
+
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    NavHost(navController, startDestination = "WelcomeScreen") {
+                    NavHost(navController, startDestination = if (isFirstRun) "RegistraciaScreen" else "WelcomeScreen") {
                         composable("WelcomeScreen") { WelcomeScreen(navController) }
+
                         composable("HomeScreen") { HomeScreen(navController) }
                         composable("PushScreen") { PushScreen(navController) }
                         composable("PullScreen") { PullScreen(navController) }
                         composable("Legs_Abs_Screen") { Legs_Abs_Screen(navController) }
-
-                        composable("CvicenieScreen") { CvicenieScreen(navController) }
 
                         composable("HrudnikScreen") { HrudnikScreen(navController) }
                         composable("RamenaScreen") { RamenaScreen(navController) }
@@ -66,6 +70,10 @@ class MainActivity : ComponentActivity() {
 
                         composable("NohyScreen") { NohyScreen(navController) }
                         composable("BruchoScreen") { BruchoScreen(navController) }
+                        composable("PokrokScreen") { PokrokScreen(navController, sharedPreferences) }
+
+
+                        composable("RegistraciaScreen") { RegistraciaScreen(navController, sharedPreferences) }
                     }
                 }
             }
@@ -90,9 +98,9 @@ fun WelcomeScreen(navController: NavController) {
             item {
                 Image(
                     painter = painterResource(id = image),
-                    contentDescription = null, // Umiestnenie obrázka
+                    contentDescription = null,
                     modifier = Modifier
-                        .fillMaxWidth() // Nastaviť obrázok na celú dostupnú šírku
+                        .fillMaxWidth()
                         .padding(10.dp)
                         .height(550.dp)
                 )
@@ -107,8 +115,8 @@ fun WelcomeScreen(navController: NavController) {
                 Button(
                     onClick = { navController.navigate("HomeScreen") },
                     modifier = Modifier
-                        .width(200.dp) // Nastaví šírku tlačidla na 200px
-                        .height(60.dp) // Nastaví výšku tlačidla na 60px
+                        .width(200.dp)
+                        .height(60.dp)
                 ) {
                     Text(
                         text = "Štart",

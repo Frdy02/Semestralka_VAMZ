@@ -1,6 +1,7 @@
 package com.example.semestralka_vamz.legs_abs
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -13,20 +14,74 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.semestralka_vamz.R
 import com.example.semestralka_vamz.zaklad.Cviky
 import com.example.semestralka_vamz.zaklad.SpodnaLista
+import com.example.semestralka_vamz.zaklad.createAnnotatedString
 
 @Composable
 fun BruchoScreen(navController: NavController) {
     val cviky = remember {
         listOf(
-            Cviky("Horná časť", R.drawable.horna1, "Popis cviku ", R.drawable.horna2, "Popis cviku "),
-            Cviky("Bočná časť", R.drawable.bocne1, "Popis cviku ", R.drawable.bocne2, "Popis cviku "),
-            Cviky("Dolná časť", R.drawable.dolne1, "Popis cviku ", R.drawable.dolne2, "Popis cviku "),
+            Cviky(
+                "Horná časť",
+                R.drawable.horna1,
+                createAnnotatedString(
+                    "Skracovačky na stroji: \n",
+                    "1.Sadnite si na sedadlo, uchopte držadlá a dajte chodidlá pod valčeky stroja\n" +
+                            "2.Stiahnite brušné svaly a pritiahnite trup ku kolenám\n" +
+                            "3.Vracajte sa do východiskovej polohy"
+                ),
+                R.drawable.horna2,
+                createAnnotatedString(
+                    "Sed ľah na šikmej lavičke: \n",
+                    "1. Ľahnite si hlavou smerom dole na šikmú lavičku a chodidlá zaháknite\n" +
+                            "2. Ruky dajte k stehnám, bokom, hrudníku či za hlavu (čím vyššie od stehien tým viac zaťažíte brušné svaly).\n" +
+                            "3. Dvíhajte sa, hrudník priblížený k panve, aby nezaberal chrbát a snažte sa dostať bradou ku kolenám\n" +
+                            "4. Potom sa vracajte rovnakým oblúkom do začínajúcej pozície, ale nedotýkajte sa chrbtom lavičky.\n" +
+                            "5. Pri vyčerpaní si v ďalších sériách môžete pomôcť klamaním, pri zdvíhaní sa z dolnej pozície dávajte ruky trochu dopredu."
+                )
+            ),
+            Cviky(
+                "Bočná časť",
+                R.drawable.bocne1,
+                createAnnotatedString(
+                    "Úklon s jednoručkou: \n",
+                    "1. Stojte vzpriamene a uchopte jednoručku do ľavej ruky, pravú ruku majte za hlavou\n" +
+                            "2. Trup ohnite doľava a spustite jednoručku ku kolenu\n" +
+                            "3. Narovnaním trupu sa sťahujú pravé šikmé brušné svaly"
+                ),
+                R.drawable.bocne2,
+                createAnnotatedString(
+                    "Bočné striedavé sed ľahy: \n",
+                    "1. Ľahnite si hlavou smerom dole na šikmú lavičku a chodidlá zaháknite, ruky dajte za hlavu\n" +
+                            "2. Dvíhajte sa a buďte pritom “zrolovaný do kĺbka” (hrudník priblížený k panve) aby nezaberal chrbát\n" +
+                            "3. Natáčajte trup aby ste sa dotkli pravým lakťom ľavého kolena a pri ďalšom opakovaní naopak\n" +
+                            "4. Pri vyčerpaní si v ďalších sériách môžete pomôcť klamaním, pri zdvíhaní sa zo zeme dávajte ruky trochu dopredu."
+                )
+            ),
+            Cviky(
+                "Dolná časť",
+                R.drawable.dolne1,
+                createAnnotatedString(
+                    "Dvíhanie nôh na šikmej lavičke: \n",
+                    "1. Ľahnite si na šikmú lavičku s nohami hore\n" +
+                            "2. Zdvíhajte nohy v bedrách a priťahujte stehná k hrudi, kolená majte mierne pokrčené\n" +
+                            "3. Pomaly spúštajte nohy do východiskovej polohy"
+                ),
+                R.drawable.dolne2,
+                createAnnotatedString(
+                    "Dvíhanie nôh vo vise: \n",
+                    "1. Rukami sa zaveste na hrazdu alebo iné bradlá. Nohy vo východzej pozícii sú spustené dole (nie úplne kolmo, ale snažíme sa ich mať len mierne prednožené pred telom)\n" +
+                            "2. Následne môžeme priťahovať nohy k telu, pričom nohy ohýname v kolenách a bedrách a dvíhame ich tak vysoko, až sa nám takmer dotknú brucha.\n" +
+                            "3. Následne nohy spúšťame naspäť do východzej pozície.\n" +
+                            "4. Pre sťaženie môžeme toto robiť s vystretými nohami."
+                )
+            )
         )
     }
 
@@ -42,8 +97,7 @@ fun BruchoScreen(navController: NavController) {
             LazyColumn(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .weight(1f)
-                    .padding(25.dp),
+                    .padding(5.dp),
                 verticalArrangement = Arrangement.spacedBy(50.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
@@ -57,12 +111,18 @@ fun BruchoScreen(navController: NavController) {
                             horizontalAlignment = Alignment.CenterHorizontally,
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .clickable { cvik.isExpanded.value = !cvik.isExpanded.value }
+                                .padding(16.dp)
                         ) {
                             Text(
                                 text = cvik.nazov,
                                 fontWeight = FontWeight.Bold,
-                                fontSize = 25.sp
+                                textAlign = TextAlign.Center,
+                                fontSize = 25.sp,
+                                color = Color.White,
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(8.dp)
+                                    .background(Color.DarkGray)
                             )
                             if (cvik.isExpanded.value) {
                                 Image(
@@ -71,7 +131,7 @@ fun BruchoScreen(navController: NavController) {
                                     modifier = Modifier
                                         .fillMaxWidth()
                                         .padding(10.dp)
-                                        .height(160.dp)
+                                        .height(300.dp)
                                 )
                                 Text(
                                     text = cvik.popis1,
@@ -86,7 +146,7 @@ fun BruchoScreen(navController: NavController) {
                                     modifier = Modifier
                                         .fillMaxWidth()
                                         .padding(10.dp)
-                                        .height(160.dp)
+                                        .height(300.dp)
                                 )
                                 Text(
                                     text = cvik.popis2,

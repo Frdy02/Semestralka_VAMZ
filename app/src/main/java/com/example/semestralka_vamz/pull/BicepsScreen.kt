@@ -1,6 +1,7 @@
 package com.example.semestralka_vamz.pull
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -25,9 +26,20 @@ import com.example.semestralka_vamz.zaklad.SpodnaLista
 fun BicepsScreen(navController: NavController) {
     val cviky = remember {
         listOf(
-            Cvik("Kladivový zdvih\ns jednoručkami", R.drawable.biceps1, "Popis cviku "),
-            Cvik("Zdvih spodnej kladky v stoji", R.drawable.biceps2, "Popis cviku "),
-            Cvik("Bicepsový zdvih\nna Scottovej lavičke", R.drawable.biceps3, "Popis cviku "),
+            Cvik("Kladivový zdvih\ns jednoručkami", R.drawable.biceps1,
+                "1. Do každej ruky uchopte jednoručku dlaňami smerom dovnútra a palcami dopreu\n" +
+                        "2. Zdvihnite jednu činku k ramenu s dlaňami stále dovnútra\n" +
+                        "3. Spustite jednoručku do východiskovej polohy a cvik opakujte s druhou rukou"),
+
+            Cvik("Zdvih spodnej kladky v stoji", R.drawable.biceps2,
+                "1. S natiahnutými rukami uchopte podhmatom tyč pripevnenú k spodnej kladke\n" +
+                        "2. Tyč zdvihneme k ramenám a ohýbajte pritom lakte\n" +
+                        "3. Pomaly tyč spúštajte až kým budú ruky natiahnuté (východisková pozícia)"),
+
+            Cvik("Bicepsový zdvih\nna Scottovej lavičke", R.drawable.biceps3,
+                "1. V sede na lavičke položte natiahnuté ruky na opierku a uchopte činku podhmatom na šírku ramien\n" +
+                        "2. Zdvihnite činku hore k ramenám\n" +
+                        "3. Vráte činku späť do východiskovej pozície"),
             )
     }
 
@@ -43,8 +55,7 @@ fun BicepsScreen(navController: NavController) {
             LazyColumn(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .weight(1f)
-                    .padding(25.dp),
+                    .padding(5.dp),
                 verticalArrangement = Arrangement.spacedBy(50.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
@@ -58,13 +69,18 @@ fun BicepsScreen(navController: NavController) {
                             horizontalAlignment = Alignment.CenterHorizontally,
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .clickable { cvik.isExpanded.value = !cvik.isExpanded.value }
+                                .padding(16.dp)
                         ) {
                             Text(
                                 text = cvik.nazov,
                                 fontWeight = FontWeight.Bold,
+                                textAlign = TextAlign.Center,
                                 fontSize = 25.sp,
-                                textAlign = TextAlign.Center
+                                color = Color.White,
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(8.dp)
+                                    .background(Color.DarkGray)
 
                             )
                             if (cvik.isExpanded.value) {
@@ -74,7 +90,7 @@ fun BicepsScreen(navController: NavController) {
                                     modifier = Modifier
                                         .fillMaxWidth()
                                         .padding(10.dp)
-                                        .height(160.dp)
+                                        .height(300.dp)
                                 )
                                 Text(
                                     text = cvik.popis,

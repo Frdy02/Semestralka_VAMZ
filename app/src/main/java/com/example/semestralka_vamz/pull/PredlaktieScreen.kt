@@ -1,6 +1,7 @@
 package com.example.semestralka_vamz.pull
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -25,8 +26,15 @@ import com.example.semestralka_vamz.zaklad.SpodnaLista
 fun PredlaktieScreen(navController: NavController) {
     val cviky = remember {
         listOf(
-            Cvik("Klopenie zápästia\ns veľkou činkou", R.drawable.predlaktie1, "Popis cviku "),
-            Cvik("Zdvih s veľkou\n činkou nadhmatom", R.drawable.predlaktie2, "Popis cviku "),
+            Cvik("Klopenie zápästia\ns veľkou činkou", R.drawable.predlaktie2,
+                "1. Sadnite si na okraj lavice a uchopte činku nadhmatom na šírku ramien, predlaktie položte na stehná\n" +
+                        "2. Ohnutím zápästia spustite činku dole k podlahe\n" +
+                        "3. Zdvihnite činku hore pomocou pohybu zápästia"),
+
+            Cvik("Zdvih s veľkou\nčinkou nadhmatom", R.drawable.predlaktie1,
+                "1.Uchopte čitku nadhmatom na šírku ramien a s natiahnutými rukami\n" +
+                        "2. Zdvihnite činku na úroveň ramien klopením zápästia hore a dole pri ohýbaní lakťov\n" +
+                        "3. Spustite činku späť do východiskovej polohy, povoľte zápästie"),
         )
     }
 
@@ -42,8 +50,7 @@ fun PredlaktieScreen(navController: NavController) {
             LazyColumn(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .weight(1f)
-                    .padding(25.dp),
+                    .padding(5.dp),
                 verticalArrangement = Arrangement.spacedBy(50.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
@@ -57,13 +64,18 @@ fun PredlaktieScreen(navController: NavController) {
                             horizontalAlignment = Alignment.CenterHorizontally,
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .clickable { cvik.isExpanded.value = !cvik.isExpanded.value }
+                                .padding(16.dp)
                         ) {
                             Text(
                                 text = cvik.nazov,
                                 fontWeight = FontWeight.Bold,
-                                fontSize = 25.sp,
                                 textAlign = TextAlign.Center,
+                                fontSize = 25.sp,
+                                color = Color.White,
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(8.dp)
+                                    .background(Color.DarkGray)
                             )
                             if (cvik.isExpanded.value) {
                                 Image(
@@ -72,7 +84,7 @@ fun PredlaktieScreen(navController: NavController) {
                                     modifier = Modifier
                                         .fillMaxWidth()
                                         .padding(10.dp)
-                                        .height(160.dp)
+                                        .height(300.dp)
                                 )
                                 Text(
                                     text = cvik.popis,

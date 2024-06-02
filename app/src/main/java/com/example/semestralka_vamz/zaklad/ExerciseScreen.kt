@@ -12,11 +12,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.withStyle
 
 data class Exercise(
     val name: String,
@@ -40,10 +44,10 @@ fun ExerciseScreen(navController: NavController, title: String, exercises: List<
             LazyColumn(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .weight(1f)
                     .padding(16.dp),
-                verticalArrangement = Arrangement.spacedBy(16.dp),
+                verticalArrangement = Arrangement.spacedBy(15.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
+
             ) {
                 items(exercises) { exercise ->
                     Column(
@@ -90,8 +94,19 @@ data class Cvik(
 data class Cviky(
     val nazov: String,
     val imageResId1: Int,
-    val popis1: String,
+    val popis1: AnnotatedString,
     val imageResId2: Int,
-    val popis2: String,
+    val popis2: AnnotatedString,
     val isExpanded: MutableState<Boolean> = mutableStateOf(false)
 )
+
+fun createAnnotatedString(boldText: String, normalText: String): AnnotatedString {
+    return buildAnnotatedString {
+        withStyle(style = SpanStyle(fontWeight = FontWeight.Bold)) {
+            append(boldText)
+        }
+        withStyle(style = SpanStyle(fontWeight = FontWeight.Normal)) {
+            append(normalText)
+        }
+    }
+}

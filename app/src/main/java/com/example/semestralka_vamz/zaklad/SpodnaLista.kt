@@ -24,19 +24,18 @@ fun SpodnaLista(navController: NavController, modifier: Modifier = Modifier) {
         color = backgroundColor,
         modifier = modifier
             .fillMaxWidth()
-            .height(70.dp)
-            .padding(10.dp)
+            .height(60.dp)
     ) {
         Row(
             horizontalArrangement = Arrangement.SpaceEvenly,
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth().padding(4.dp)
         ) {
             Image(
                 painter = painterResource(R.drawable.cvik),
                 contentDescription = "CvicenieScreen",
                 modifier = Modifier
                     .size(70.dp)
-                    .clickable { navController.navigate("CvicenieScreen") }
+                    .clickable { navController.navigate("PokrokScreen") }
             )
             Image(
                 painter = painterResource(R.drawable.house),
