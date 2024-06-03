@@ -22,8 +22,13 @@ import androidx.navigation.NavController
 import com.example.semestralka_vamz.R
 import com.example.semestralka_vamz.zaklad.Cviky
 import com.example.semestralka_vamz.zaklad.SpodnaLista
-import com.example.semestralka_vamz.zaklad.createAnnotatedString
+import com.example.semestralka_vamz.zaklad.upravaTextu
 
+/**
+ * NohyScreen je obrazovka, ktorá zobrazuje cvičenia na posilnenie nôh.
+ *
+ * @param navController NavController použitý na navigáciu medzi obrazovkami.
+ */
 @Composable
 fun NohyScreen(navController: NavController) {
     val cviky = remember {
@@ -31,14 +36,14 @@ fun NohyScreen(navController: NavController) {
             Cviky(
                 "Kvadricepsy",
                 R.drawable.predkopavanie,
-                createAnnotatedString(
+                upravaTextu(
                 "Predkopávanie v sede na stroji: \n",
                     "1. V sede na stroji zaprieme priehlavky o valčeky stroja\n" +
                         "2. Nohy zdvíhajte hore až do napnutých kolien\n" +
                         "3. Nohy spúštajte späť do východiskovej polohy, kolená zvierajú 90° uhol"
                 ),
                 R.drawable.legpress,
-                createAnnotatedString(
+                upravaTextu(
                 "Leg-press: \n",
                     "1. V sede na stroji umiestnite chodidlá v šírke ramien na opierku stroja\n" +
                         "2. Pomaly spúštajte závažie dole kým budú kolená v  pravom uhle\n" +
@@ -48,14 +53,14 @@ fun NohyScreen(navController: NavController) {
 
             Cviky("Hamstringy",
                 R.drawable.zakopavanie,
-                createAnnotatedString(
+                upravaTextu(
                 "Zakopávanie na lavičke \n",
                     "1. Ľahnite si čelom smerom dole na lavičku a zaprite päty o valčeky stroja\n" +
                         "2. Priťahovaním päty smerom k sedacím svalom a ohýbaním v kolenách zdvíhajte závažie\n" +
                         "3. Vráťte závažie späť do východiskovej pozície"
                 ),
                 R.drawable.mrtvy,
-                createAnnotatedString(
+                upravaTextu(
                 "Mrtvý ťah na nohy: \n",
                     "1. V pozícii postojačky s chodidlami na šírku bokov uchopte činku do natiahnutých rúk\n" +
                         "2. Predkloňte sa v páse a spustite činku dole, nohy neobýbajte\n" +
@@ -65,14 +70,14 @@ fun NohyScreen(navController: NavController) {
 
             Cviky("Lítka",
                 R.drawable.litka1,
-                createAnnotatedString(
+                upravaTextu(
                 "Výpony na stroji v stoji: \n",
                     "1. Prednú časť chodidiel umiestnite na plošinu, ramená pod podložky stroja a spustite päty čo najnižšie\n" +
                         "2. Zdvihnutím päty čo najvyššie posuňte závažiš hore, nohy majte stále napnuté\n" +
                         "3. Pomaly spúštajte päty späť do východiskovej polohy"
                 ),
                 R.drawable.litka2,
-                createAnnotatedString(
+                upravaTextu(
                 "Výpony v sede: \n",
                     "1. Prednú časť chodidiel postavte na plošinu, položte opierky stroja na spodnú časť stehien a spustite päty čo najnižšie\n" +
                         "2. Zdvihnutím päty čo najvyššie posuniete závažie hore\n" +

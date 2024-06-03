@@ -17,6 +17,13 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.semestralka_vamz.R
 
+/**
+ * SpodnaLista predstavuje dolný navigačný panel v aplikácii.
+ * Umožňuje navigáciu medzi domovskou obrazovkou a obrazovkou pokroku.
+ *
+ * @param navController NavController použitý na navigáciu medzi obrazovkami.
+ * @param modifier Modifier použitý na úpravu alebo pridanie správania k SpodnaLista.
+ */
 @Composable
 fun SpodnaLista(navController: NavController, modifier: Modifier = Modifier) {
     val backgroundColor = Color.DarkGray

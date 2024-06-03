@@ -22,6 +22,11 @@ import com.example.semestralka_vamz.R
 import com.example.semestralka_vamz.zaklad.Cvik
 import com.example.semestralka_vamz.zaklad.SpodnaLista
 
+/**
+ * BicepsScreen je obrazovka, ktorá zobrazuje cvičenia na posilnenie bicepsov.
+ *
+ * @param navController NavController použitý na navigáciu medzi obrazovkami.
+ */
 @Composable
 fun BicepsScreen(navController: NavController) {
     val cviky = remember {

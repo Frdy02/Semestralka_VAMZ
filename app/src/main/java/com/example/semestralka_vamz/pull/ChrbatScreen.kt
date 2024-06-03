@@ -21,9 +21,13 @@ import androidx.navigation.NavController
 import com.example.semestralka_vamz.R
 import com.example.semestralka_vamz.zaklad.Cviky
 import com.example.semestralka_vamz.zaklad.SpodnaLista
-import com.example.semestralka_vamz.zaklad.createAnnotatedString
+import com.example.semestralka_vamz.zaklad.upravaTextu
 
-
+/**
+ * ChrbatScreen je obrazovka, ktorá zobrazuje cvičenia na posilnenie chrbta.
+ *
+ * @param navController NavController použitý na navigáciu medzi obrazovkami.
+ */
 @Composable
 fun ChrbatScreen(navController: NavController) {
     val cviky = remember {
@@ -31,14 +35,14 @@ fun ChrbatScreen(navController: NavController) {
             Cviky(
                 "Horná časť chrbta",
                 R.drawable.vrch1,
-                createAnnotatedString(
+                upravaTextu(
                     "Veslovanie s kladkou v sede: \n",
                     "1. Uchopte držadlá kladky rukami natiahnutými dopredu\n" +
                             "2. Držadlá priťahujte smerom k hrudníku, chrbát majte počas celého cvičenia rovný\n" +
                             "3. Vráťte držadlá späť do východiskovej polohy"
                 ),
                 R.drawable.vrch2,
-                createAnnotatedString(
+                upravaTextu(
                     "Krčenie ramien s jednoručkami: \n",
                     "1. Postavte sa rovno a uchopte jednoručky nadhmatom, ruky majte spustené po stranách tak, že dlane smerujú do tela\n" +
                             "2. Ramená zdvíhajte čo najvyššie, ruky zostávajú natiahnuté\n" +
@@ -48,14 +52,14 @@ fun ChrbatScreen(navController: NavController) {
             Cviky(
                 "Stredná časť chrbta",
                 R.drawable.stred_c1,
-                createAnnotatedString(
+                upravaTextu(
                     "Sťahovanie hornej kladky, širokým úchopom: \n",
                     "1. Uchopte tyč nadhmatom s rukami o 15 cm vzdialených od seba než je šírka ramien\n" +
                             "2. Tyč sťahujte dole k hornej časti hrudi a stláčajte široký chrbtový sval\n" +
                             "3. Vráťte tyč späť do východzej polohy nad hlavou"
                 ),
                 R.drawable.stred_c2,
-                createAnnotatedString(
+                upravaTextu(
                     "Príťahy v predklone s jednoručkou: \n",
                     "1. Jednoručku priťahujte dlaňou smerom k sebe. Druhú ruku a koleno položte na lavicu tak, aby chrbtica bola rovná a paralelne s podlahou\n" +
                             "2. Jednoručku priťahujte vertikálne hore pozdĺž trupu, zdvíhajte pritom lakeť čo najvyššie\n" +
@@ -65,14 +69,14 @@ fun ChrbatScreen(navController: NavController) {
             Cviky(
                 "Dolná časť chrbta",
                 R.drawable.dolny1,
-                createAnnotatedString(
+                upravaTextu(
                     "Hyperextenzia: \n",
                     "1. Držadlá stroja uchopte natiahnutím rúk a trup oprite o hrudnú opierku\n" +
                             "2. Držadlá priťahujte k hornej časti brucha, chrbtica nech je rovná\n" +
                             "3. Závažie vráťte späť do východiskovej polohy"
                 ),
                 R.drawable.dolny2,
-                createAnnotatedString(
+                upravaTextu(
                     "Mŕtvy ťah: \n",
                     "1. Činku uchopte nadhmatom v šírke ramien s natiahnutými rukami a dajte sa do mierneho predklonu\n" +
                             "2. Narovnaním tela zdvíhajte činku na úroveň bokov, chrbticu majte rovno a lakte napnuté\n" +

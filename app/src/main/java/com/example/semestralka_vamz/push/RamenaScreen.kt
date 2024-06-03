@@ -21,9 +21,13 @@ import androidx.navigation.NavController
 import com.example.semestralka_vamz.R
 import com.example.semestralka_vamz.zaklad.Cviky
 import com.example.semestralka_vamz.zaklad.SpodnaLista
-import com.example.semestralka_vamz.zaklad.createAnnotatedString
+import com.example.semestralka_vamz.zaklad.upravaTextu
 
-
+/**
+ * RamenaScreen je obrazovka, ktorá zobrazuje cvičenia na posilnenie ramien.
+ *
+ * @param navController NavController použitý na navigáciu medzi obrazovkami.
+ */
 @Composable
 fun RamenaScreen(navController: NavController) {
     val cviky = remember {
@@ -31,14 +35,14 @@ fun RamenaScreen(navController: NavController) {
             Cviky(
                 "Predná hlava",
                 R.drawable.predna1,
-                createAnnotatedString(
+                upravaTextu(
                     "Tlaky na ramená s jednoručkami:\n",
                     "1. V sede na lavičke uchopte jednoručky dlaňami dopredu na šírku ramien\n" +
                             "2. Jednoručky zdvíhajte vertikálne hore až do polohy napnutých lakťov\n" +
                             "3. Jednoručky spúštajte späť až do východiskovej polohy"
                 ),
                 R.drawable.predna2,
-                createAnnotatedString(
+                upravaTextu(
                     "Predpažovanie s kladkou:\n",
                     "1. Jednou rukou s dlaňou smerom dole uchopte držadlo pripevnené k spodnej kladke\n" +
                             "2. Chbtom ku kladkovému zariadeniu zdvihnite držadlo oblúkom hore až na úroveň ramien s napnutým lakťom\n" +
@@ -48,14 +52,14 @@ fun RamenaScreen(navController: NavController) {
             Cviky(
                 "Stredná hlava",
                 R.drawable.stredne_r1,
-                createAnnotatedString(
+                upravaTextu(
                     "Upažovanie s jednoručkami v stoji:\n",
                     "1. Uchopte jednoručky vo vzpriamenom stoji, ruky majte spustené dole\n" +
                             "2. Zdvihnite ruky po stranách hore až na úroveň ramien\n" +
                             "3. Jednoručky spúšťajte späť do východiskovej polohy"
                 ),
                 R.drawable.stredne_r2,
-                createAnnotatedString(
+                upravaTextu(
                     "Upažovanie s kladkou v stoji:\n",
                     "1. Jednou rukou uchopte držadlo pripevnené k spodnej kladke\n" +
                             "2. Zdvíhajte ruku oblúkom do strany a hore až na úroveň ramien, lakeť majte napnutý\n" +
@@ -65,14 +69,14 @@ fun RamenaScreen(navController: NavController) {
             Cviky(
                 "Zadná hlava",
                 R.drawable.zadna1,
-                createAnnotatedString(
+                upravaTextu(
                     "Rozpažovanie na stroji:\n",
                     "1. V sede čelom k stroju s hrudníkom opretým o chrbtovú podložku stroja uchopte držadlá vpredu s rukami natiahnutými na úroveň ramien\n" +
                             "2. Držadlá ťahajte oblúkom čo najviac dozadu, lakte držte vysoko a ruky paralelne s podlahou\n" +
                             "3. Vráťte držadlá späť do východiskovej pozície dopredu"
                 ),
                 R.drawable.zadna2,
-                createAnnotatedString(
+                upravaTextu(
                     "Upažovanie s jednoručkami v predklone:\n",
                     "1. Uchopte dve jednoručky, ruky majte spustené dole a predkloňte sa v páse dopredu tak, aby chrbtica bola rovná a hlava smerovala hore\n" +
                             "2. S dlaňami k sebe zdvihnite jednoručky na úroveň uší, lakte majte ľahko ohnuté\n" +

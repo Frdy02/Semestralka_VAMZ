@@ -21,8 +21,13 @@ import androidx.navigation.NavController
 import com.example.semestralka_vamz.R
 import com.example.semestralka_vamz.zaklad.Cviky
 import com.example.semestralka_vamz.zaklad.SpodnaLista
-import com.example.semestralka_vamz.zaklad.createAnnotatedString
+import com.example.semestralka_vamz.zaklad.upravaTextu
 
+/**
+ * BruchoScreen je obrazovka, ktorá zobrazuje cvičenia na posilnenie brucha.
+ *
+ * @param navController NavController použitý na navigáciu medzi obrazovkami.
+ */
 @Composable
 fun BruchoScreen(navController: NavController) {
     val cviky = remember {
@@ -30,14 +35,14 @@ fun BruchoScreen(navController: NavController) {
             Cviky(
                 "Horná časť",
                 R.drawable.horna1,
-                createAnnotatedString(
+                upravaTextu(
                     "Skracovačky na stroji: \n",
                     "1.Sadnite si na sedadlo, uchopte držadlá a dajte chodidlá pod valčeky stroja\n" +
                             "2.Stiahnite brušné svaly a pritiahnite trup ku kolenám\n" +
                             "3.Vracajte sa do východiskovej polohy"
                 ),
                 R.drawable.horna2,
-                createAnnotatedString(
+                upravaTextu(
                     "Sed ľah na šikmej lavičke: \n",
                     "1. Ľahnite si hlavou smerom dole na šikmú lavičku a chodidlá zaháknite\n" +
                             "2. Ruky dajte k stehnám, bokom, hrudníku či za hlavu (čím vyššie od stehien tým viac zaťažíte brušné svaly).\n" +
@@ -49,14 +54,14 @@ fun BruchoScreen(navController: NavController) {
             Cviky(
                 "Bočná časť",
                 R.drawable.bocne1,
-                createAnnotatedString(
+                upravaTextu(
                     "Úklon s jednoručkou: \n",
                     "1. Stojte vzpriamene a uchopte jednoručku do ľavej ruky, pravú ruku majte za hlavou\n" +
                             "2. Trup ohnite doľava a spustite jednoručku ku kolenu\n" +
                             "3. Narovnaním trupu sa sťahujú pravé šikmé brušné svaly"
                 ),
                 R.drawable.bocne2,
-                createAnnotatedString(
+                upravaTextu(
                     "Bočné striedavé sed ľahy: \n",
                     "1. Ľahnite si hlavou smerom dole na šikmú lavičku a chodidlá zaháknite, ruky dajte za hlavu\n" +
                             "2. Dvíhajte sa a buďte pritom “zrolovaný do kĺbka” (hrudník priblížený k panve) aby nezaberal chrbát\n" +
@@ -67,14 +72,14 @@ fun BruchoScreen(navController: NavController) {
             Cviky(
                 "Dolná časť",
                 R.drawable.dolne1,
-                createAnnotatedString(
+                upravaTextu(
                     "Dvíhanie nôh na šikmej lavičke: \n",
                     "1. Ľahnite si na šikmú lavičku s nohami hore\n" +
                             "2. Zdvíhajte nohy v bedrách a priťahujte stehná k hrudi, kolená majte mierne pokrčené\n" +
                             "3. Pomaly spúštajte nohy do východiskovej polohy"
                 ),
                 R.drawable.dolne2,
-                createAnnotatedString(
+                upravaTextu(
                     "Dvíhanie nôh vo vise: \n",
                     "1. Rukami sa zaveste na hrazdu alebo iné bradlá. Nohy vo východzej pozícii sú spustené dole (nie úplne kolmo, ale snažíme sa ich mať len mierne prednožené pred telom)\n" +
                             "2. Následne môžeme priťahovať nohy k telu, pričom nohy ohýname v kolenách a bedrách a dvíhame ich tak vysoko, až sa nám takmer dotknú brucha.\n" +

@@ -9,6 +9,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
+/**
+ * CieleScreen je obrazovka, kde si užívateľ stanoví svoje tréningové ciele.
+ *
+ * @param onNext Funkcia, ktorá sa spustí po kliknutí na tlačidlo Ďalej.
+ */
 @Composable
 fun CieleScreen(onNext: () -> Unit) {
     val goals = listOf("Chudnutie", "Naberanie svalovej hmoty", "Udržanie kondície")

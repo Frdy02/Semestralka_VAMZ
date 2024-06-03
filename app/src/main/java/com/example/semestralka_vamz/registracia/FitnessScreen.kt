@@ -9,6 +9,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
+/**
+ * FitnessScreen je obrazovka, kde si užívateľ vyberá svoju kondičnú úroveň.
+ *
+ * @param onNext Funkcia, ktorá sa spustí po kliknutí na tlačidlo Ďalej.
+ */
 @Composable
 fun FitnessScreen(onNext: () -> Unit) {
     val levels = listOf("Začiatočník", "Pokročilý", "Expert")

@@ -6,16 +6,21 @@ import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.semestralka_vamz.R
+import com.example.semestralka_vamz.notifikacia.NotifikacnyPomocnik
 import com.example.semestralka_vamz.zaklad.SpodnaLista
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -23,47 +28,48 @@ import java.util.Locale
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
-fun SharedPreferences.putTrainingRecords(records: List<TrainingRecord>) {
+/**
+ * Rozšírenie pre SharedPreferences na ukladanie a načítanie zoznamu tréningových záznamov.
+ */
+fun SharedPreferences.putTrainingRecords(records: List<TreningovyZaznam>) {
     val json = Gson().toJson(records)
-    edit().putString("trainingRecords", json).apply()
+    edit().putString("treningoveZaznamy", json).apply()
 }
 
-fun SharedPreferences.getTrainingRecords(): List<TrainingRecord> {
-    val json = getString("trainingRecords", null) ?: return emptyList()
-    val type = object : TypeToken<List<TrainingRecord>>() {}.type
+fun SharedPreferences.getTrainingRecords(): List<TreningovyZaznam> {
+    val json = getString("treningoveZaznamy", null) ?: return emptyList()
+    val type = object : TypeToken<List<TreningovyZaznam>>() {}.type
     return Gson().fromJson(json, type)
 }
 
-data class TrainingRecord(
-    val datum: String,
-    val hmotnost: String,
-    val pocetOpakovani: String,
-    val poznamka: String
-)
 
+/**
+ * PokrokScreen je obrazovka, kde užívateľ môže sledovať svoj tréningový pokrok,
+ * pridávať nové tréningové záznamy a prezerať si predchádzajúce záznamy.
+ *
+ * @param navController NavController použitý na navigáciu medzi obrazovkami.
+ * @param sharedPreferences Zdieľané preferencie na uloženie a načítanie tréningových záznamov.
+ * @param viewModel ViewModel, ktorý udržiava stav obrazovky pokroku.
+ */
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun PokrokScreen(navController: NavController, sharedPreferences: SharedPreferences) {
+fun PokrokScreen(navController: NavController, sharedPreferences: SharedPreferences, viewModel: PokrokViewModel) {
     val meno = sharedPreferences.getString("meno", "Užívateľ") ?: "Užívateľ"
-    var hmotnost by remember { mutableStateOf("") }
-    var pocetOpakovani by remember { mutableStateOf("") }
-    var poznamka by remember { mutableStateOf("") }
-    val treningoveZaznamy = remember { mutableStateListOf<TrainingRecord>() }
-    var showInitialTests by remember { mutableStateOf(false) }
+    val hmotnost by viewModel.hmotnost.collectAsState()
+    val pocetOpakovani by viewModel.pocetOpakovani.collectAsState()
+    val poznamka by viewModel.poznamka.collectAsState()
+    val treningoveZaznamy by viewModel.treningoveZaznamy.collectAsState()
+    var ukazVstupnyTest by remember { mutableStateOf(false) }
+    var showValidationError by remember { mutableStateOf(false) }
 
     // Načítanie uložených záznamov pri spustení
     LaunchedEffect(Unit) {
         val savedRecords = sharedPreferences.getTrainingRecords()
-        treningoveZaznamy.addAll(savedRecords)
-    }
-
-    fun removeRecord(record: TrainingRecord) {
-        treningoveZaznamy.remove(record)
-        sharedPreferences.putTrainingRecords(treningoveZaznamy)
+        viewModel.loadRecords(savedRecords)
     }
 
     Surface(
-        color = Color(0xFF000015),
+        color = colorResource(id = R.color.background_color),
         modifier = Modifier.fillMaxSize()
     ) {
         Column(
@@ -90,7 +96,7 @@ fun PokrokScreen(navController: NavController, sharedPreferences: SharedPreferen
                 }
                 item {
                     Button(
-                        onClick = { showInitialTests = !showInitialTests },
+                        onClick = { ukazVstupnyTest = !ukazVstupnyTest },
                         modifier = Modifier.fillMaxWidth()
                     ) {
                         Text(
@@ -100,7 +106,7 @@ fun PokrokScreen(navController: NavController, sharedPreferences: SharedPreferen
                     }
                     Spacer(modifier = Modifier.height(25.dp))
                 }
-                if (showInitialTests) {
+                if (ukazVstupnyTest) {
                     item {
                         val initialTestsResults = """
                             Počet klikov: ${sharedPreferences.getString("Počet klikov", "Žiadne záznamy")}
@@ -126,44 +132,66 @@ fun PokrokScreen(navController: NavController, sharedPreferences: SharedPreferen
                 item {
                     TextField(
                         value = hmotnost,
-                        onValueChange = { hmotnost = it },
+                        onValueChange = { viewModel.onHmotnostChange(it) },
                         label = { Text("Hmotnosť (kg) / Vzdialenosť (km)", fontSize = 19.sp) },
-                        modifier = Modifier.fillMaxWidth()
+                        modifier = Modifier.fillMaxWidth(),
+                        keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number)
                     )
                 }
                 item {
                     Spacer(modifier = Modifier.height(16.dp))
                     TextField(
                         value = pocetOpakovani,
-                        onValueChange = { pocetOpakovani = it },
+                        onValueChange = { viewModel.onPocetOpakovaniChange(it) },
                         label = { Text("Počet opakovaní / čas", fontSize = 19.sp) },
-                        modifier = Modifier.fillMaxWidth()
+                        modifier = Modifier.fillMaxWidth(),
+                        keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number)
                     )
                 }
                 item {
                     Spacer(modifier = Modifier.height(16.dp))
                     TextField(
                         value = poznamka,
-                        onValueChange = { poznamka = it },
+                        onValueChange = { viewModel.onPoznamkaChange(it) },
                         label = { Text("Poznámky", fontSize = 19.sp) },
                         modifier = Modifier.fillMaxWidth()
                     )
+                }
+                if (showValidationError) {
+                    item {
+                        Text(
+                            text = "Všetky polia musia byť vyplnené!",
+                            color = Color.Red,
+                            fontWeight = FontWeight.Bold,
+                            modifier = Modifier.padding(8.dp)
+                        )
+                    }
                 }
                 item {
                     Spacer(modifier = Modifier.height(16.dp))
                     Button(
                         onClick = {
-                            val currentDateTime =
-                                SimpleDateFormat("dd.MM.yyyy HH:mm", Locale.getDefault()).format(
-                                    Date()
-                                )
+                            if (hmotnost.isBlank() || pocetOpakovani.isBlank() || poznamka.isBlank()) {
+                                showValidationError = true
+                            } else {
+                                showValidationError = false
+                                val currentDateTime =
+                                    SimpleDateFormat("dd.MM.yyyy HH:mm", Locale.getDefault()).format(
+                                        Date()
+                                    )
 
-                            val novyZaznam = TrainingRecord(currentDateTime, hmotnost, pocetOpakovani, poznamka)
-                            treningoveZaznamy.add(novyZaznam)
-                            sharedPreferences.putTrainingRecords(treningoveZaznamy)
-                            hmotnost = ""
-                            pocetOpakovani = ""
-                            poznamka = ""
+                                val novyZaznam = TreningovyZaznam(currentDateTime, hmotnost, pocetOpakovani, poznamka)
+                                viewModel.addTrainingRecord(novyZaznam)
+                                sharedPreferences.putTrainingRecords(viewModel.treningoveZaznamy.value)
+                                viewModel.onHmotnostChange("")
+                                viewModel.onPocetOpakovaniChange("")
+                                viewModel.onPoznamkaChange("")
+                                NotifikacnyPomocnik.posliNotifikaciu(
+                                    navController.context,
+                                    "Záznam uložený",
+                                    "Váš tréningový záznam bol úspešne uložený."
+                                )
+                            }
                         },
                         modifier = Modifier.fillMaxWidth()
                     ) {
@@ -180,7 +208,10 @@ fun PokrokScreen(navController: NavController, sharedPreferences: SharedPreferen
                             .padding(vertical = 8.dp)
                             .combinedClickable(
                                 onClick = { /* niečo do buducna */ },
-                                onLongClick = { removeRecord(record) }
+                                onLongClick = {
+                                    viewModel.removeTrainingRecord(record)
+                                    sharedPreferences.putTrainingRecords(viewModel.treningoveZaznamy.value)
+                                }
                             )
                     ) {
                         Column(

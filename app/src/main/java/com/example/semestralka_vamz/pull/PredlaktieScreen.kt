@@ -22,6 +22,11 @@ import com.example.semestralka_vamz.R
 import com.example.semestralka_vamz.zaklad.Cvik
 import com.example.semestralka_vamz.zaklad.SpodnaLista
 
+/**
+ * PredlaktieScreen je obrazovka, ktorá zobrazuje cvičenia na posilnenie predlaktia.
+ *
+ * @param navController NavController použitý na navigáciu medzi obrazovkami.
+ */
 @Composable
 fun PredlaktieScreen(navController: NavController) {
     val cviky = remember {
